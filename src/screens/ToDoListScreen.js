@@ -5,8 +5,11 @@ import {
   FlatList,
   TouchableHighlight,
   Button,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from "react-native";
+
+import { ToDoCategoryItem } from "../components/index";
 import useTodo from "../hooks/useTodo";
 
 const ToDoListScreen = ({ navigation }) => {
@@ -37,6 +40,13 @@ const ToDoListScreen = ({ navigation }) => {
   return (
     <View style={styles.conatiner}>
       <Text> Hello User </Text>
+      <View style={styles.toDoCategory}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={true}>
+          <ToDoCategoryItem />
+          <ToDoCategoryItem />
+          <ToDoCategoryItem />
+        </ScrollView>
+      </View>
       {todoList.length <= 0 ? (
         <RenderNoItemView />
       ) : (
@@ -68,6 +78,9 @@ const styles = StyleSheet.create({
   conatiner: {
     flex: 1,
     margin: 10
+  },
+  toDoCategory: {
+    height: 100
   },
   toDoList: {
     marginTop: 10,
