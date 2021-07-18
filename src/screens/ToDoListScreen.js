@@ -9,8 +9,16 @@ import {
 } from "react-native";
 import useTodo from "../hooks/useTodo";
 
-const ToDoListScreen = () => {
+const ToDoListScreen = ({ navigation }) => {
   const [todoList, addTodDoList, resetToDoList] = useTodo();
+
+  const RenderNoItemView = () => {
+    return (
+      <View style={styles.renderNoItemFound}>
+        <Text> + Add item using Add button</Text>
+      </View>
+    );
+  };
 
   const renderToDoItem = () => {
     return (
@@ -29,20 +37,26 @@ const ToDoListScreen = () => {
   return (
     <View style={styles.conatiner}>
       <Text> Hello User </Text>
-      <FlatList
-        style={styles.toDoList}
-        data={todoList}
-        renderItem={renderToDoItem}
-        keyExtractor={(item, index) => index}
-      />
+      {todoList.length <= 0 ? (
+        <RenderNoItemView />
+      ) : (
+        <FlatList
+          style={styles.toDoList}
+          data={todoList}
+          renderItem={renderToDoItem}
+          keyExtractor={(item, index) => index}
+        />
+      )}
+
       <View style={styles.addTodo}>
         <Button
           title="Add Item"
           onPress={() => {
-            const toDo = {
-              value: "This is dfd dod"
-            };
-            addTodDoList(toDo);
+            // const toDo = {
+            //   value: "This is dfd dod"
+            // };
+            navigation.navigate("CreateToDo", { addItem: addTodDoList });
+            //addTodDoList(toDo);
           }}
         />
       </View>
@@ -63,7 +77,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 0,
     bottom: 0
-  }
+  },
+  renderNoItemFound: {}
 });
 
 export default ToDoListScreen;
