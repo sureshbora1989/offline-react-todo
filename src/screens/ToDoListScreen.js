@@ -23,7 +23,8 @@ const ToDoListScreen = ({ navigation }) => {
     );
   };
 
-  const renderToDoItem = () => {
+  const renderToDoItem = ({ item }) => {
+    console.log(item);
     return (
       <View>
         <TouchableHighlight
@@ -31,7 +32,7 @@ const ToDoListScreen = ({ navigation }) => {
             resetToDoList();
           }}
         >
-          <Text> To do item</Text>
+          <Text>{item.todoNotes.text} </Text>
         </TouchableHighlight>
       </View>
     );
